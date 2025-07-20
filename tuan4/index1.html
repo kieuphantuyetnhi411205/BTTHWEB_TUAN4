@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', sans-serif;
+            background: linear-gradient(to right, #f0f0f0, #e0e0e0);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .info img {
+            width: 280px;
+            object-fit: cover;
+            display: block;
+            margin: 0 auto 20px;
+            border: 4px solid #ddd;
+        }
+        form {
+            margin-top: 20px;
+        }
+        input, textarea, button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+            font-size: 14px;
+        }
+        button {
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .error {
+            color: red;
+            font-size: 13px;
+            margin-top: 4px;
+        }
+        .success {
+            color: green;
+            font-size: 14px;
+            text-align: center;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="info">
+        <h2>Giới thiệu bản thân</h2>
+        <p><strong>Họ tên:</strong> Kiều Phan Tuyết Nhi</p>
+        <p><strong>Ngày sinh:</strong> 04-11-2005</p>
+        <img src="hinhanh/hinhnen.jpg" alt="Ảnh đại diện" />
+        <p><strong>Sở thích:</strong> Đi du lịch</p>
+        <p><strong>Mô tả ngắn:</strong> Sinh viên năm 2 Đại học Công Nghiệp TP.HCM</p>
+    </div>
+    <div class="contact-form">
+        <h3>Liên hệ với tôi</h3>
+        <form id="form">
+            <label for="email">Email:</label>
+            <input type="text" id="email" name="email" placeholder="Nhập email của bạn"/>
+            <div class="error" id="emailError"></div>
+            <label for="message">Tin nhắn:</label>
+            <textarea id="message" name="message" rows="4" placeholder="Nội dung tin nhắn..."></textarea>
+            <button type="submit">Gửi</button>
+            <div class="success" id="successMsg"></div>
+        </form>
+    </div>
+    <script>
+        const form = document.getElementById('form');
+        const emailInput = document.getElementById('email');
+        const emailError = document.getElementById('emailError');
+        const successMsg = document.getElementById('successMsg');
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const email = emailInput.value.trim();
+            const regex = /^[\w\.-]+@[\w\.-]+\.\w+$/;
+            if (!regex.test(email)) {
+                emailError.textContent = "Email không hợp lệ.";
+                successMsg.textContent = "";
+            } else {
+                emailError.textContent = "";
+                successMsg.textContent = "Đã gửi thành công!";
+                form.reset();
+            }
+        });
+    </script>
+</body>
+</html>
