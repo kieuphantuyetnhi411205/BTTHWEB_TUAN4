@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+     <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f0f2f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .form-container {
+            background: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 400px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-top: 12px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 15px;
+        }
+        .error {
+            color: red;
+            font-size: 13px;
+            margin-top: 4px;
+        }
+        .success {
+            color: green;
+            text-align: center;
+            margin-top: 10px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background: #007BFF;
+            color: white;
+            font-size: 16px;
+            border: none;
+            margin-top: 20px;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h2>Đăng ký thông tin</h2>
+        <form id="registerForm">
+        <input type="text" id="name" placeholder="Họ và tên">
+        <div class="error" id="nameError"></div>
+        <input type="text" id="email" placeholder="Email">
+        <div class="error" id="emailError"></div>
+        <input type="text" id="phone" placeholder="Số điện thoại">
+        <div class="error" id="phoneError"></div>
+        <button type="submit">Gửi</button>
+        <div class="success" id="successMsg"></div>
+        </form>
+    </div>
+    <script>
+        const form = document.getElementById("registerForm");
+        const nameInput = document.getElementById("name");
+        const emailInput = document.getElementById("email");
+        const phoneInput = document.getElementById("phone");
+        const nameError = document.getElementById("nameError");
+        const emailError = document.getElementById("emailError");
+        const phoneError = document.getElementById("phoneError");
+        const successMsg = document.getElementById("successMsg");
+        form.addEventListener("submit", function (e) {
+            e.preventDefault();
+            let valid = true;
+            successMsg.textContent = "";
+            const nameRegex = /^[a-zA-ZÀ-ỹ\s]+$/u;
+            const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/;
+            const phoneRegex = /^0\d{9}$/;
+            if (!nameRegex.test(nameInput.value.trim())) {
+                nameError.textContent = "Tên không hợp lệ. Không chứa số hoặc ký hiệu.";
+                valid = false;
+            } else {
+                nameError.textContent = "";
+            }
+            if (!emailRegex.test(emailInput.value.trim())) {
+                emailError.textContent = "Email không hợp lệ.";
+                valid = false;
+            } 
+            else {
+                emailError.textContent = "";
+            }
+            if (!phoneRegex.test(phoneInput.value.trim())) {
+                phoneError.textContent = "Số điện thoại không hợp lệ (bắt đầu bằng 0, đủ 10 số).";
+                valid = false;
+            } else {
+                phoneError.textContent = "";
+            }
+            if (valid) {
+                successMsg.textContent = "Đăng ký thành công!";
+                form.reset();
+            }
+        });
+    </script>
+</body>
+</html>
