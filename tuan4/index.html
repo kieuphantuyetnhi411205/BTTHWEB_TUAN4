@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(to right, #e3f2fd, #ffffff);
+            padding: 30px;
+            color: #333;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #1976d2;
+        }
+        .card {
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            padding: 20px 30px;
+            margin-bottom: 20px;
+            transition: transform 0.2s ease-in-out;
+        }
+        .card:hover {
+            transform: scale(1.01);
+        }
+        .card h2,
+        .card h3 {
+            color: #0d47a1;
+            margin-bottom: 12px;
+            font-weight: bold;
+        }
+        input {
+            padding: 10px;
+            margin: 8px 5px 8px 0;
+            width: 220px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            transition: border-color 0.3s;
+        }
+        input:focus {
+            border-color: #1976d2;
+            outline: none;
+        }
+        button {
+            padding: 10px 18px;
+            background-color: #1976d2;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #0d47a1;
+        }
+        .output {
+            margin-top: 10px;
+            font-size: 1.1em;
+            font-weight: bold;
+            color: #2e7d32;
+        }
+        .error {
+            color: red;
+        }
+        @media (max-width: 600px) {
+            input {
+            width: 100%;
+            margin-bottom: 10px;
+            }
+
+            button {
+            width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Bài Tập JavaScript</h1>
+    <div class="card">
+        <h3>1. Nhập tên ra console</h3>
+        <input id="name1" type="text" placeholder="Nhập tên của bạn">
+        <button onclick="printConsole()">In Console</button>
+    </div>
+    <div class="card">
+        <h3>2. Nhập tên Click Hiển thị Hello</h3>
+        <input id="name2" type="text" placeholder="Nhập tên của bạn">
+        <button onclick="displayHello()">Hiển thị</button>
+        <div id="helloDisplay" class="output"></div>
+    </div>
+    <div class="card">
+        <h3>3. Nhập 2 số  Click  In tổng</h3>
+        <input id="num1" type="number" placeholder="Số 1">
+        <input id="num2" type="number" placeholder="Số 2">
+        <button onclick="sumNumbers()">Tính Tổng</button>
+        <div id="sumResult" class="output"></div>
+    </div>
+    <div class="card">
+        <h3>4. Kiểm tra có nhập hay chưa</h3>
+        <input id="checkInput" type="text" placeholder="Nhập gì đó...">
+        <button onclick="checkIfEmpty()">Kiểm Tra</button>
+        <div id="checkResult" class="output"></div>
+    </div>
+    <div class="card">
+        <h3>5. Nhập từ hoặc số Click In ra loại</h3>
+        <input id="typeCheck" type="text" placeholder="Nhập 1 từ hoặc số">
+        <button onclick="checkType()">Phân loại</button>
+        <div id="typeResult" class="output"></div>
+    </div>
+     <div class="card">
+        <h2>6. Nâng cấp Bài 3: Báo lỗi nếu chưa nhập hoặc nhập chữ</h2>
+        <input id="num1Up" type="text" placeholder="Số 1">
+        <input id="num2Up" type="text" placeholder="Số 2">
+        <button onclick="sumNumbersAdvanced()">Tính Tổng</button>
+        <div id="sumAdvancedResult" class="output"></div>
+    </div>
+    <div class="card">
+        <h2>7. Kiểm tra số điện thoại di động (10 số)</h2>
+        <input id="mobileCheck" type="text" placeholder="VD: 0912345678">
+        <button onclick="validateMobile()">Kiểm tra</button>
+        <div id="mobileResult" class="output"></div>
+    </div>
+    <div class="card">
+        <h2>8. Kiểm tra số điện thoại cố định (024-xxxxxxx)</h2>
+        <input id="landlineCheck" type="text" placeholder="VD: 024-1234567">
+        <button onclick="validateLandline()">Kiểm tra</button>
+        <div id="landlineResult" class="output"></div>
+    </div>
+        <div class="card">
+        <h2>9. Kiểm tra số mobile định dạng 09XXXXXXXX</h2>
+        <input id="mobile09Check" type="text" placeholder="VD: 0987654321">
+        <button onclick="validateMobile09()">Kiểm tra</button>
+        <div id="mobile09Result" class="output"></div>
+    </div>
+    <div class="card">
+        <h2>10. Kiểm tra mã nhân viên (FPT-XXXXXX)</h2>
+        <input id="employeeCode" type="text" placeholder="VD: FPT-123456">
+        <button onclick="validateEmployeeCode()">Kiểm tra</button>
+        <div id="employeeResult" class="output"></div>
+    </div>
+    <script>
+        function printConsole() {
+            const name = document.getElementById("name1").value;
+            if (name === "") {
+                console.error("Please input your name");}
+                else{console.log("Hello " + name);}
+            }
+            function displayHello() {
+                const name = document.getElementById("name2").value;
+                document.getElementById("helloDisplay").innerText = "Hello " + name;
+        }
+        function sumNumbers() {
+            let num1 = document.getElementById("num1").value.trim();
+            let num2 = document.getElementById("num2").value.trim();
+            let result = document.getElementById("sumResult");
+            if (num1 === "" || num2 === "") {
+                result.innerText = "Nhập đủ cả hai số";
+                return;
+            }
+            if (isNaN(num1) || isNaN(num2)) {
+                result.innerText = "Nhập số thôi ";
+                return;
+            }
+            let a = +num1;
+            let b = +num2;
+            result.innerText = "Tổng: " + (a + b);
+        }
+        function checkIfEmpty() {
+            const input = document.getElementById("checkInput").value;
+            const result = input.trim() === "" ? "Chưa nhập" : "Đã nhập: " + input;
+            document.getElementById("checkResult").innerText = result;
+        }
+        function checkType() {
+            const value = document.getElementById("typeCheck").value.trim();
+            if (value === "") {
+                    document.getElementById("typeResult").innerText = "Chưa nhập gì cả!";
+                } 
+                else if (!isNaN(value)) {
+                    document.getElementById("typeResult").innerText = "Ký tự số";
+                } 
+                else {
+                    document.getElementById("typeResult").innerText = "Chuỗi";
+            }
+        }
+        function sumNumbersAdvanced() {
+            const num1 = document.getElementById("num1Up").value.trim();
+            const num2 = document.getElementById("num2Up").value.trim();
+            const result = document.getElementById("sumAdvancedResult");
+
+            if (num1 === "" || num2 === "") {
+                result.innerText = "Chưa nhập đủ số";
+                return;
+            }
+
+            if (isNaN(num1) || isNaN(num2)) {
+                result.innerText = "Nhập sai! Chỉ được nhập số.";
+                return;
+            }
+
+            result.innerText = "Tổng là: " + (+num1 + +num2);
+        }
+        function validateMobile() {
+            const value = document.getElementById("mobileCheck").value.trim();
+            const regex = /^[0-9]{10}$/;
+            const result = regex.test(value)
+                ? "Số hợp lệ"
+                : "Sai định dạng! Phải đủ 10 chữ số.";
+            document.getElementById("mobileResult").innerText = result;
+        }
+        function validateLandline() {
+        const value = document.getElementById("landlineCheck").value.trim();
+        const regex = /^024-\d{7}$/;
+        const result = regex.test(value)
+            ? "Số hợp lệ "
+            : "Sai định dạng!";
+        document.getElementById("landlineResult").innerText = result;
+        }
+        function validateMobile09() {
+        const value = document.getElementById("mobile09Check").value.trim();
+        const regex = /^09\d{8}$/;
+        const result = regex.test(value)
+            ? "Mã hợp lệ "
+            : "Sai định dạng!";
+        document.getElementById("mobile09Result").innerText = result;
+        }
+        function validateEmployeeCode() {
+        const value = document.getElementById("employeeCode").value.trim();
+        const regex = /^FPT-\d{6}$/;
+        const result = regex.test(value)
+            ? "Mã hợp lệ "
+            : "Sai định dạng!";
+        document.getElementById("employeeResult").innerText = result;
+        }
+    </script>
+</body>
+</html>
