@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: linear-gradient(to right, #e0f7fa, #ffffff);
+            padding: 40px;
+            color: #333;
+        }
+        h1 {
+            text-align: center;
+            color: #00796b;
+            margin-bottom: 30px;
+        }
+        .container {
+            max-width: 450px;
+            margin: auto;
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+        }
+        .dob-group {
+            display: flex;
+            gap: 10px;
+            justify-content: space-between;
+        }
+        .dob-group input {
+            flex: 1;
+        }
+        label {
+            font-weight: bold;
+            display: block;
+            margin-top: 15px;
+            margin-bottom: 5px;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+            margin-bottom: 10px;
+            transition: border-color 0.3s;
+        }
+        input:focus {
+            border-color: #00796b;
+            outline: none;
+        }
+        button {
+            width: 100%;
+            padding: 12px;
+            background: #00796b;
+            color: white;
+            font-weight: bold;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #004d40;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 1.1em;
+            color: #2e7d32;
+            font-weight: bold;
+        }
+        .error {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <h1>Kiểm tra thông tin CCCD và Bằng lái xe</h1>
+    <div class="container">
+        <label for="fullname">Họ và tên</label>
+        <input type="text" id="fullname" placeholder="Nhập họ và tên">
+        <label>Ngày sinh</label>
+        <div class="dob-group">
+            <input type="number" id="day" placeholder="Ngày">
+            <input type="number" id="month" placeholder="Tháng">
+            <input type="number" id="year" placeholder="Năm">
+        </div>
+        <label for="cccd">CCCD</label>
+        <input type="text" id="cccd" placeholder="Nhập số CCCD (12 số)">
+        <label>Mã bằng lái xe</label>
+        <input type="text" id="license" placeholder="VD: Nhập số BLX (12 số)">
+        <button onclick="validateInfo()">Kiểm tra</button>
+        <div class="result" id="output"></div>
+    </div>
+    <script>
+        function validateInfo() {
+            const name = document.getElementById("fullname").value.trim();
+            const day = parseInt(document.getElementById("day").value.trim());
+            const month = parseInt(document.getElementById("month").value.trim());
+            const year = parseInt(document.getElementById("year").value.trim());
+            const cccd = document.getElementById("cccd").value.trim();
+            const output = document.getElementById("output");
+            if (name === "") {
+                output.innerHTML = "<span class='error'>Vui lòng nhập họ và tên.</span>";
+                return;
+            }
+            if (isNaN(day) || day < 1 || day > 31) {
+                output.innerHTML = "<span class='error'>Ngày sinh không hợp lệ.</span>";
+                return;
+            }
+            if (isNaN(month) || month < 1 || month > 12) {
+                output.innerHTML = "<span class='error'>Tháng sinh không hợp lệ.</span>";
+                return;
+            }
+            const currentYear = new Date().getFullYear();
+            if (isNaN(year) || year < 1900 || year > currentYear) {
+                output.innerHTML = "<span class='error'>Năm sinh không hợp lệ.</span>";
+                return;
+            }
+                    const cccdRegex = /^\d{12}$/;
+            if (!cccdRegex.test(cccd)) {
+                output.innerHTML = "<span class='error'>CCCD phải đúng 12 chữ số.</span>";
+                return;
+            }
+            const license = document.getElementById("license").value.trim().toUpperCase();
+            const licenseRegex = /^\d{12}$/;
+            if (!licenseRegex.test(license)) {
+                output.innerHTML = "<span class='error'>Mã bằng lái xe phải có dạng 12 số.</span>";
+                return;
+            }
+            output.innerHTML = `<span class='valid'>
+                Họ tên: <b>${name}</b><br>
+                Ngày sinh: <b>${day}/${month}/${year}</b><br>
+                CCCD: <b>${cccd}</b><br>
+                Bằng lái: <b>${license}</b><br>
+                Tất cả thông tin đều hợp lệ!
+            </span>`;
+        }
+    </script>
+</body>
+</html>
