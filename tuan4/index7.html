@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đặt Bàn Quán Ăn</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background: linear-gradient(to right, #d9afd9, #97d9e1);
+        }
+        form {
+            max-width: 350px;
+            margin: auto;
+            padding: 20px;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px #999;
+        }
+        h3 {
+            text-align: center;
+        }
+        div {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        input, textarea {
+            width: 100%;
+            padding: 7px;
+            box-sizing: border-box;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #667eea;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        button:hover {
+            background-color: #5a67d8;
+        }
+        .error {
+            color: red;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+    <form id="reservationForm">
+        <h3>Đặt Bàn Quán Ăn</h3>
+        <div>
+            <label for="name">Tên khách:</label>
+            <input type="text" id="name" required>
+            <div class="error" id="nameError"></div>
+        </div>
+        <div>
+            <label for="date">Ngày (YYYY-MM-DD):</label>
+            <input type="date" id="date" required>
+            <div class="error" id="dateError"></div>
+        </div>
+        <div>
+            <label for="time">Giờ:</label>
+            <input type="time" id="time" required>
+        </div>
+        <div>
+            <label for="people">Số người (1–99):</label>
+            <input type="number" id="people" min="1" max="99" required>
+            <div class="error" id="peopleError"></div>
+        </div>
+        <div>
+            <label for="note">Yêu cầu đặc biệt:</label>
+            <textarea id="note" rows="3"></textarea>
+        </div>
+        <button type="submit">Đặt bàn</button>
+        <div id="successMsg"></div>
+    </form>
+    <script>
+        const form = document.getElementById("reservationForm");
+        form.addEventListener("submit", function(e) {
+            e.preventDefault();
+            let isValid = true;
+            document.getElementById("nameError").textContent = "";
+            document.getElementById("dateError").textContent = "";
+            document.getElementById("peopleError").textContent = "";
+            const name = document.getElementById("name").value.trim();
+            if (!/^[A-Za-zÀ-ỹ\s]+$/.test(name)) {
+                document.getElementById("nameError").textContent = "Tên không hợp lệ. Chỉ được chứa chữ và khoảng trắng.";
+                isValid = false;
+            }
+            const date = document.getElementById("date").value;
+            if (!/^\d{4}-\d{2}-\d{2}$/.test(date)) {
+                document.getElementById("dateError").textContent = "Định dạng ngày phải là YYYY-MM-DD.";
+                isValid = false;
+            }
+            const people = parseInt(document.getElementById("people").value);
+            if (isNaN(people) || people < 1 || people > 99) {
+                document.getElementById("peopleError").textContent = "Số người phải từ 1 đến 99.";
+                isValid = false;
+            }
+            if (isValid) {
+                successMsg.textContent = "Đặt bàn thành công!";
+                form.reset();
+            }
+        });
+    </script>
+</body>
+</html>
