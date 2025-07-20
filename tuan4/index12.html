@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f0f8ff;
+            padding: 30px;
+        }
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+        form {
+            max-width: 400px;
+            margin: 30px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #555;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 14px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #4caf50;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        #thongbao {
+            margin-top: 10px;
+            font-weight: bold;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h2>Lịch sự kiện</h2>
+    <form onsubmit="return kiemTraNgay()">
+        <label>Nhập ngày (dd/mm/yyyy):</label>
+        <input type="text" id="ngay" placeholder="VD: 24/07/2025">
+        <button type="submit">Kiểm tra</button>
+        <p id="thongbao"></p>
+    </form>
+    <script>
+        function kiemTraNgay() {
+            const ngay = document.getElementById("ngay").value.trim();
+            const regex = /^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[0-2])\/\d{4}$/;
+            const tb = document.getElementById("thongbao");
+            if (regex.test(ngay)) {
+                tb.textContent = "Ngày hợp lệ.";
+                tb.style.color = "green";
+            } else {
+                tb.textContent = "Định dạng sai. Đúng dạng là dd/mm/yyyy.";
+                tb.style.color = "red";
+            }
+            return false;
+        }
+    </script>
+</body>
+</html>
