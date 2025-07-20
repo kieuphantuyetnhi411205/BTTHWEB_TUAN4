@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Đặt Tour Du Lịch</title>
+    <style>
+        body {
+        font-family: Arial, sans-serif;
+        padding: 20px;
+        background-color: #f9f9f9;
+        }
+        h2 {
+        text-align: center;
+        color: #2c3e50;
+        }
+        form {
+        max-width: 500px;
+        margin: auto;
+        background: #fff;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        label {
+        font-weight: bold;
+        margin-top: 15px;
+        display: block;
+        }
+        input, select, button {
+        width: 100%;
+        padding: 10px;
+        margin-top: 5px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        font-size: 15px;
+        }
+        button {
+        background-color: #27ae60;
+        color: white;
+        font-weight: bold;
+        margin-top: 20px;
+        }
+        button:hover {
+        background-color: #219150;
+        }
+        .message {
+        text-align: center;
+        font-weight: bold;
+        margin-top: 15px;
+        font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <h2>Đặt Tour Du Lịch</h2>
+    <form id="tourForm">
+        <label for="tour">Chọn tour:</label>
+        <select id="tour" required>
+            <option value="">-- Chọn địa điểm --</option>
+            <option value="Đà Lạt">Đà Lạt</option>
+            <option value="Đà Nẵng">Đà Nẵng</option>
+            <option value="Phú Quốc">Phú Quốc</option>
+            <option value="Nha Trang">Nha Trang</option>
+            <option value="Sapa">Sapa</option>
+        </select>
+        <label for="ngay">Ngày khởi hành (dd/mm/yyyy):</label>
+        <input type="text" id="ngay" placeholder="VD: 25/12/2025" required>
+        <label for="songuoi">Số người:</label>
+        <input type="text" id="songuoi" placeholder="Từ 1 đến 99" required>
+        <button type="submit" id="btnDatTour">Đặt tour</button>
+        <div class="message" id="message"></div>
+    </form>
+    <script>
+        document.getElementById("tourForm").addEventListener("submit", function(e) {
+            e.preventDefault();
+            const tour = document.getElementById("tour").value.trim();
+            const ngay = document.getElementById("ngay").value.trim();
+            const songuoi = document.getElementById("songuoi").value.trim();
+            const message = document.getElementById("message");
+            const regexNgay = /^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[012])\/\d{4}$/;
+            const regexSoNguoi = /^[1-9][0-9]?$/;
+            if (tour === "") {
+                message.textContent = "Vui lòng chọn tour du lịch!";
+                message.style.color = "red";
+                return;
+            }
+            if (!regexNgay.test(ngay)) {
+                message.textContent = "Ngày không hợp lệ (định dạng dd/mm/yyyy)";
+                message.style.color = "red";
+                return;
+            }
+            if (!regexSoNguoi.test(songuoi)) {
+                message.textContent = "Số người phải từ 1 đến 99";
+                message.style.color = "red";
+                return;
+            }
+            message.textContent = `Đặt tour đi ${tour} thành công!`;
+            message.style.color = "green";
+            document.getElementById("tourForm").reset();
+        });
+    </script>
+</body>
+</html>
