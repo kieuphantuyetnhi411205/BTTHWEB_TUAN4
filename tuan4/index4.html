@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            font-family: Arial;
+            text-align: center;
+            margin: 40px;
+        }
+        input {
+            width: 300px;
+            padding: 8px;
+            margin: 10px;
+        }
+        button {
+            padding: 8px 16px;
+        }
+        audio {
+            margin-top: 20px;
+            width: 300px;
+        }
+        .error {
+            color: red;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h2>Nhúng file âm thanh (.mp3)</h2>
+    <input type="text" id="audioLink" placeholder="Dán link file .mp3 vào đây">
+    <button onclick="playAudio()">Phát nhạc</button>
+    <div id="audioContainer"></div>
+    <div id="errorText" class="error"></div>
+    <script>
+        function playAudio() {
+            const link = document.getElementById("audioLink").value.trim();
+            const regex = /^https?:\/\/.*\.mp3$/i;
+            const container = document.getElementById("audioContainer");
+            const errorText = document.getElementById("errorText");
+            if (regex.test(link)) {
+                container.innerHTML = `<audio controls><source src="${link}" type="audio/mpeg">Trình duyệt của bạn không hỗ trợ audio.</audio>`;
+                errorText.textContent = "";
+            } else {
+                container.innerHTML = "";
+                errorText.textContent = "Link không hợp lệ. Hãy đảm bảo link kết thúc bằng '.mp3'.";
+            }
+        }
+    </script>
+</body>
+</html>
