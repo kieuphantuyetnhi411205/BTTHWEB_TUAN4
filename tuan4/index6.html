@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Khảo Sát</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        button:hover {
+            background: #8a7b96;
+        }
+        .error {
+            color: red;
+            margin-top: 5px;
+        }
+        .success {
+            color: green;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <form onsubmit="return validateSurveyForm(event)">
+        <h3>Form Khảo Sát Ý Kiến Cho Dự Án Shop Thời Trang</h3>
+        Email (nếu có):<br>
+        <input type="text" id="email" placeholder="abc@example.com"><br>
+        <div id="emailError" class="error"></div><br>
+        Giới tính của bạn?<br>
+        <input type="radio" name="sex"> Nam<br>
+        <input type="radio" name="sex"> Nữ<br>
+        <input type="radio" name="sex"> Khác<br><br>
+        Bạn thường mua quần áo mới bao lâu một lần?<br>
+        <input type="checkbox" name="time"> Hàng tháng<br>
+        <input type="checkbox" name="time"> Mỗi 3–6 tháng<br>
+        <input type="checkbox" name="time"> Khi có nhu cầu<br>
+        <input type="checkbox" name="time"> Khi có ưu đãi, khuyến mãi<br><br>
+        Bạn thường mua quần áo ở đâu?<br>
+        <input type="checkbox" name="where"> Cửa hàng truyền thống<br>
+        <input type="checkbox" name="where"> Mua online trên website/app<br>
+        <input type="checkbox" name="where"> Mạng xã hội (Instagram, Facebook)<br>
+        <input type="checkbox" name="where"> Shop thời trang địa phương<br><br>
+        Phong cách bạn thích?<br>
+        <input type="radio" name="style"> Năng động, trẻ trung<br>
+        <input type="radio" name="style"> Thanh lịch, tối giản<br>
+        <input type="radio" name="style"> Sang trọng, cao cấp<br>
+        <input type="radio" name="style"> Thể thao, thoải mái<br><br>
+        Góp ý của bạn để shop thời trang phục vụ tốt hơn trong tương lai:<br>
+        <textarea id="feedback" rows="7" cols="30" placeholder="Tối đa 300 ký tự..."></textarea><br>
+        <div id="feedbackError" class="error"></div><br>
+        <button type="submit">Gửi</button>
+        <div id="successMessage" class="success"></div>
+    </form>
+    <script>
+        function validateSurveyForm(event) {
+            event.preventDefault();
+            const email = document.getElementById("email").value.trim();
+            const feedback = document.getElementById("feedback").value.trim();
+            const emailError = document.getElementById("emailError");
+            const feedbackError = document.getElementById("feedbackError");
+            const successMessage = document.getElementById("successMessage");
+            emailError.innerText = "";
+            feedbackError.innerText = "";
+            successMessage.innerText = "";
+            var valid = true;
+            if (email !== "") {
+                const emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
+                if (!emailRegex.test(email)) {
+                    emailError.innerText = "Email không hợp lệ.";
+                    valid = false;
+                }
+            }
+            if (feedback.length > 300) {
+                feedbackError.innerText = "Góp ý không được vượt quá 300 ký tự.";
+                valid = false;
+            }
+            if (valid) {
+                successMessage.innerText = "Cảm ơn bạn đã hoàn thành khảo sát!";
+            }
+            return valid;
+        }
+    </script>
+</body>
+</html>
