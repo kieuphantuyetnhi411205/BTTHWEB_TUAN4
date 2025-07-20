@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            font-family: Arial;
+            text-align: center;
+            padding: 30px;
+        }
+        input {
+            width: 300px;
+            padding: 8px;
+            margin: 10px;
+        }
+        button {
+            padding: 8px 16px;
+        }
+        iframe {
+            margin-top: 20px;
+            width: 560px;
+            height: 315px;
+            max-width: 100%;
+        }
+        .error {
+            color: red;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h2>Nhúng video YouTube</h2>
+    <input type="text" id="youtubeLink" placeholder="Dán link YouTube vào đây">
+    <button onclick="embedVideo()">Hiển thị</button>
+    <div id="videoContainer"></div>
+    <div class="error" id="errorText"></div>
+    <script>
+        function embedVideo() {
+        const link = document.getElementById("youtubeLink").value.trim();
+        const match = link.match(/(?:youtube\.com.*(?:\/|v=)|youtu\.be\/)([\w\-]{11})/);
+        const container = document.getElementById("videoContainer");
+        const errorText = document.getElementById("errorText");
+        if (match && match[1]) {
+            const videoId = match[1];
+            container.innerHTML = `<iframe src="https://www.youtube.com/embed/${videoId}" frameborder="0" allowfullscreen></iframe>`;
+            errorText.textContent = "";
+        } else {
+            container.innerHTML = "";
+            errorText.textContent = "Link YouTube không hợp lệ hoặc không đúng định dạng.";
+        }
+        }
+    </script>
+</body>
+</html>
